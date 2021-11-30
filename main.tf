@@ -11,8 +11,8 @@ provider "aws" {
 resource "aws_vpc" "vpc" {
   cidr_block = var.vpc_cidr_block
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-vpc",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-vpc",
+    dept = "${var.dept}"
   }
 }
 
@@ -27,8 +27,8 @@ resource "aws_subnet" "subnet_public" {
   cidr_block              = var.subnet_public_cidr_block
   map_public_ip_on_launch = true
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-subnet-public",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-subnet-public",
+    dept = "${var.dept}"
   }
 }
 
@@ -39,8 +39,8 @@ resource "aws_internet_gateway" "internet_gateway" {
   vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-internet-gateway",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-internet-gateway",
+    dept = "${var.dept}"
   }
 }
 
@@ -56,8 +56,8 @@ resource "aws_route_table" "route_table_public" {
   }
 
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-route-table-public",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-route-table-public",
+    dept = "${var.dept}"
   }
 }
 
@@ -76,8 +76,8 @@ resource "aws_eip" "eip" {
   vpc        = true
   depends_on = [aws_internet_gateway.internet_gateway]
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-eip",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-eip",
+    dept = "${var.dept}"
   }
 }
 
@@ -89,8 +89,8 @@ resource "aws_nat_gateway" "nat_gateway" {
   subnet_id     = aws_subnet.subnet_public.id
 
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-nat-gateway",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-nat-gateway",
+    dept = "${var.dept}"
   }
 }
 
@@ -104,8 +104,8 @@ resource "aws_subnet" "subnet_private" {
   cidr_block              = var.subnet_private_cidr_block
   map_public_ip_on_launch = false
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-subnet-private",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-subnet-private",
+    dept = "${var.dept}"
   }
 }
 
@@ -121,8 +121,8 @@ resource "aws_route_table" "route_table_private" {
   }
 
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-route-table-private",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-route-table-private",
+    dept = "${var.dept}"
   }
 }
 
@@ -157,8 +157,8 @@ resource "aws_default_network_acl" "default_network_acl" {
   }
 
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-default-network-acl",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-default-network-acl",
+    dept = "${var.dept}"
   }
 }
 
@@ -184,7 +184,7 @@ resource "aws_default_security_group" "default_security_group" {
   }
 
   tags = {
-    Name = "${var.project}-${var.facing-internal-or-external}-default-security-group",
-    dept = "DEV"
+    Name = "${var.project}-${var.dept}-${var.facing-internal-or-external}-${var.env}-default-security-group",
+    dept = "${var.dept}"
   }
 }

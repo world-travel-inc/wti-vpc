@@ -34,3 +34,18 @@ variable "facing-internal-or-external" {
     error_message = "Only \"int\" or \"ext\" are accepted for this variable."
   }
 }
+
+variable "dept" {
+  type        = string
+  description = "The department/cost-center that these components belong to."
+  default     = "DEV"
+}
+
+variable "env" {
+  type        = string
+  description = "The environment that this conponent is tied to. Answer either 'dev' or 'stage' or 'prod'."
+  validation {
+    condition = var.env == "dev" || var.env == "stage" || var.env == "prod"
+    error_message = "Only \"dev\" or \"stage\" or \"prod\" are accepted for this variable."
+  }
+}
